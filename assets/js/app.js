@@ -22,6 +22,7 @@ $("#add-meme").on("click", function (event) {
   var meme = $("#user-meme-input").val().trim();
   memes.push(meme);
   renderButtons();
+  $("#user-meme-input").val('');
 });
 
 $(document).on("click", ".meme", alertmemeName);
