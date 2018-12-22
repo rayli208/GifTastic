@@ -1,19 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-<link rel="stylesheet" href="./assets/css/styles.css">
-<title>GifTastic</title>
-</head>
-<body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="./assets/js/app.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+  <link rel="stylesheet" href="./assets/css/styles.css">
+  <title>GifTastic</title>
+</head>
+
+<body>
+  <div class="container mt-3">
+    <div class="jumbotron mx-auto bg-dark">
+      <h1 class="display-4 text-center text-white">Meme Generator</h1>
+      <hr class="my-4 bg-white">
+      <p class="lead text-center text-white">Create a keyword to search memes by! Generate the most popular memes!</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-4 mt-3">
+            <div class="card text-center">
+                <div class="card-header bg-dark text-white">
+                  Your Memes:
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Meme's to Search:</h5>
+                  <div class="input-group mb-3">
+                      <input type="text" id="user-meme-input" class="form-control" placeholder="Meme Genre" aria-label="Genre" aria-describedby="basic-addon1">
+                    </div>
+                  <a href="#" class="btn btn-outline-primary btn-block">
+                    Generate!
+                  </a>
+                </div>
+                <hr class="mx-auto" width="75%">
+              </div>
+        </div>
+      <div class="col-12 col-md-8 mt-3">
+          <div class="card text-center pb-2">
+              <div class="card-header bg-dark text-white">
+                Memes Generated:
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Here are your {BLANK} Memes!</h5>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-12 mb-1"><img src="https://via.placeholder.com/150"></div>
+                <div class="col-md-4 col-12 mb-1"><img src="https://via.placeholder.com/150"></div>
+                <div class="col-md-4 col-12 mb-1"><img src="https://via.placeholder.com/150"></div>
+                <div class="col-md-4 col-12 mb-1"><img src="https://via.placeholder.com/150"></div>
+                <div class="col-md-4 col-12 mb-1"><img src="https://via.placeholder.com/150"></div>
+                <div class="col-md-4 col-12 mb-1"><img src="https://via.placeholder.com/150"></div>
+                <div class="col-md-4 col-12 mb-1"><img src="https://via.placeholder.com/150"></div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-5 mb-3">
+  <nav class="navbar navbar-dark bg-dark ">
+      <p class="lead mx-auto text-white pt-2">Rayli Raykov</p>
+  </nav>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="./assets/js/app.js"></script>
 </body>
+
 </html>
