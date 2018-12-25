@@ -1,6 +1,7 @@
 //TAKE USER INPUT
 var memes = [];
 
+//Loop through the memes array to add all searched memes
 function renderButtons() {
   $("#meme-name-holder").empty();
   for (var i = 0; i < memes.length; i++) {
@@ -13,24 +14,37 @@ function renderButtons() {
   }
 }
 
+//Add a meme to the memes array
 $("#add-meme").on("click", function(event) {
   event.preventDefault();
   var meme = $("#user-meme-input")
     .val()
     .trim();
-  if(meme === ''){
-    alert("Please enter something!")
+  if (meme === "") {
+    alert("Please enter something!");
     false;
-  }else{
+  } else {
     memes.push(meme);
     renderButtons();
     $("#user-meme-input").val("");
   }
 });
 
+//Delete all searched memes
+$("#delete-meme").on("click", function(event) {
+  event.preventDefault();
+  if (confirm("You sure you wanna delete all your precious memes :/?")) {
+    memes = [];
+    renderButtons();
+    $("#user-meme-input").val("");
+  } else {
+    false;
+  }
+});
+
 renderButtons();
 
-//DISPLAY ON SCREEN
+//Display on screen in "memes generated" area
 function handler() {
   event.preventDefault();
   var meme = $(this).attr("data-name");
