@@ -1,11 +1,6 @@
 //TAKE USER INPUT
 var memes = ["trump", "taco"];
 
-function alertmemeName() {
-  var memeAlert = $(this).attr("data-name");
-  alert(memeAlert);
-}
-
 function renderButtons() {
   $("#meme-name-holder").empty();
   for (var i = 0; i < memes.length; i++) {
@@ -13,8 +8,10 @@ function renderButtons() {
     btn.addClass("meme btn btn-warning btn-block text-white mb-2");
     btn.attr("data-name", memes[i]);
     btn.text(memes[i]);
+//    btn.on("click", handler);
     $("#meme-name-holder").append(btn);
   }
+  $("button").on("click", handler);
 }
 
 $("#add-meme").on("click", function (event) {
@@ -25,11 +22,11 @@ $("#add-meme").on("click", function (event) {
   $("#user-meme-input").val('');
 });
 
-$(document).on("click", ".meme", alertmemeName);
 renderButtons();
 
 //DISPLAY ON SCREEN
-$("button").on("click", function () {
+function handler() {
+  event.preventDefault();
   var meme = $(this).attr("data-name");
   var queryURL = `https://api.giphy.com/v1/gifs/search?q=${meme}&api_key=dc6zaTOxFJmzC&limit=10`;
   $("#meme-title").text(meme);
@@ -54,4 +51,4 @@ $("button").on("click", function () {
         $("#all-memes").prepend(gifDiv);
       }
     });
-});
+}
