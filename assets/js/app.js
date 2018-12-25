@@ -1,5 +1,5 @@
 //TAKE USER INPUT
-var memes = ["trump", "taco"];
+var memes = [];
 
 function renderButtons() {
   $("#meme-name-holder").empty();
