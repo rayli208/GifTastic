@@ -70,11 +70,25 @@ function handler() {
       linkToImage.attr("href", results[i].url);
       linkToImage.attr("target", "_blank");
       linkToImage.text("Link to Meme");
-
+      //Create the meme image and give it all of its attributes for still images and moving images
       var memeImage = $("<img>");
-      memeImage.attr("src", results[i].images.fixed_height.url);
+      memeImage.attr("data-still", results[i].images.original_still.url);
+      memeImage.attr("data-animate", results[i].images.fixed_height.url);
+      memeImage.attr("data-state", "still");
+      memeImage.addClass("gif");
       memeImage.css("width", 150);
       memeImage.css("height", 150);
+      memeImage.attr("src", results[i].images.original_still.url);
+      $(".gif").on("click", function() {
+        var state = $(this).attr("data-state");
+        if (state === "still") {
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+        } else {
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+        }
+      });
 
       imgContainer.append(memeImage);
       linkContainer.append(linkToImage);
