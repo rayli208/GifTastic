@@ -45,7 +45,7 @@ $("#delete-meme").on("click", function(event) {
 renderButtons();
 
 //Display on screen in "memes generated" area
-function handler() {
+function handler(event) {
   event.preventDefault();
   var meme = $(this).attr("data-name");
   var queryURL = `https://api.giphy.com/v1/gifs/search?q=${meme}&api_key=dc6zaTOxFJmzC&limit=10`;
