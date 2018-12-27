@@ -92,8 +92,8 @@ function regenerateImages(results) {
   }
 }
 
-function animate(e) {
-  // e.preventDefault();
+function animate(event) {
+  event.preventDefault();
   var state = $(this).attr("data-state");
   if (state === "still") {
     $(this).attr("src", $(this).attr("data-animate"));
