@@ -55,48 +55,51 @@ function handler() {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    $("#all-memes").empty();
-    var results = response.data;
-    console.log(results);
-    for (var i = 0; i < results.length; i++) {
-      var gifDiv = $("<div class='col-md-6 col-lg-4 col-12 mb-1'>");
-      var rating = results[i].rating;
-      var pRating = $("<p class='btn btn-warning btn-sm mt-2'>").text(
-        "Rating: " + rating
-      );
-      var imgContainer = $("<p>");
-      var linkContainer = $("<p>");
-      var linkToImage = $("<a class='btn btn-warning btn-sm'>");
-      linkToImage.attr("href", results[i].url);
-      linkToImage.attr("target", "_blank");
-      linkToImage.text("Link to Meme");
-      //Create the meme image and give it all of its attributes for still images and moving images
-      var memeImage = $("<img>");
-      memeImage.attr("data-still", results[i].images.original_still.url);
-      memeImage.attr("data-animate", results[i].images.fixed_height.url);
-      memeImage.attr("data-state", "still");
-      memeImage.addClass("gif");
-      memeImage.css("width", 150);
-      memeImage.css("height", 150);
-      memeImage.attr("src", results[i].images.original_still.url);
-      $(".gif").on("click", function() {
-        var state = $(this).attr("data-state");
-        if (state === "still") {
-          $(this).attr("src", $(this).attr("data-animate"));
-          $(this).attr("data-state", "animate");
-        } else {
-          $(this).attr("src", $(this).attr("data-still"));
-          $(this).attr("data-state", "still");
-        }
-      });
-
-      imgContainer.append(memeImage);
-      linkContainer.append(linkToImage);
-      gifDiv.append(imgContainer);
-      gifDiv.append(pRating);
-      gifDiv.append(linkContainer);
-
-      $("#all-memes").prepend(gifDiv);
-    }
+    regenerateImages(response.data);
   });
+}
+
+function regenerateImages(results) {
+  $("#all-memes").empty();
+  for (var i = 0; i < results.length; i++) {
+    var gifDiv = $("<div class='col-md-6 col-lg-4 col-12 mb-1'>");
+    var rating = results[i].rating;
+    var pRating = $("<p class='btn btn-warning btn-sm mt-2'>").text(
+      "Rating: " + rating
+    );
+    var imgContainer = $("<p>");
+    var linkContainer = $("<p>");
+    var linkToImage = $("<a class='btn btn-warning btn-sm'>");
+    linkToImage.attr("href", results[i].url);
+    linkToImage.attr("target", "_blank");
+    linkToImage.text("Link to Meme");
+    //Create the meme image and give it all of its attributes for still images and moving images
+    var memeImage = $("<img>");
+    memeImage.attr("data-still", results[i].images.original_still.url);
+    memeImage.attr("data-animate", results[i].images.fixed_height.url);
+    memeImage.attr("data-state", "still");
+    memeImage.css("width", 150);
+    memeImage.css("height", 150);
+    memeImage.attr("src", results[i].images.original_still.url);
+    memeImage.on("click", animate);
+    imgContainer.append(memeImage);
+    linkContainer.append(linkToImage);
+    gifDiv.append(imgContainer);
+    gifDiv.append(pRating);
+    gifDiv.append(linkContainer);
+
+    $("#all-memes").prepend(gifDiv);
+  }
+}
+
+function animate(e) {
+  // e.preventDefault();
+  var state = $(this).attr("data-state");
+  if (state === "still") {
+    $(this).attr("src", $(this).attr("data-animate"));
+    $(this).attr("data-state", "animate");
+  } else {
+    $(this).attr("src", $(this).attr("data-still"));
+    $(this).attr("data-state", "still");
+  }  
 }
