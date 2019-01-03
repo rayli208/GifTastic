@@ -64,29 +64,39 @@ function regenerateImages(results) {
   for (var i = 0; i < results.length; i++) {
     var gifDiv = $("<div class='col-md-6 col-lg-4 col-12 mb-1'>");
     var rating = results[i].rating;
-    var pRating = $("<p class='btn btn-warning btn-sm mt-2'>").text(
-      "Rating: " + rating
-    );
+
+    //Create button group
+    var buttonGroup = $("<div class='btn-group btn-group-sm mb-3' role='group' aria-label='Basic example'>");
+    //Create and append rating button
+    var ratingButton = $("<button type='button' class='btn btn-primary'>").text(rating);
+    buttonGroup.append(ratingButton);
+
+    //Create Link button
+    var linkButton = $("<button type='button' class='btn btn-outline-warning'>");
+    var linkIcon = $("<i class='fas fa-link'>");
+    linkButton.attr("href", results[i].url);
+    linkButton.attr("target", "_blank");
+    //Append link button to button group
+    linkButton.append(linkIcon);
+    buttonGroup.append(linkButton);
+
+    //Create Favorite Button
+    var heartButton = $("<button type='button' class='btn btn-outline-danger'>");
+    var heartIcon = $("<i class='fas fa-heart'>");
+    heartButton.append(heartIcon);
+    buttonGroup.append(heartButton);
+
     var imgContainer = $("<p>");
-    var linkContainer = $("<p>");
-    var linkToImage = $("<a class='btn btn-warning btn-sm'>");
-    linkToImage.attr("href", results[i].url);
-    linkToImage.attr("target", "_blank");
-    linkToImage.text("Link to Meme");
     //Create the meme image and give it all of its attributes for still images and moving images
     var memeImage = $("<img>");
     memeImage.attr("data-still", results[i].images.original_still.url);
     memeImage.attr("data-animate", results[i].images.fixed_height.url);
     memeImage.attr("data-state", "still");
-    memeImage.css("width", 150);
-    memeImage.css("height", 150);
     memeImage.attr("src", results[i].images.original_still.url);
     memeImage.on("click", animate);
     imgContainer.append(memeImage);
-    linkContainer.append(linkToImage);
     gifDiv.append(imgContainer);
-    gifDiv.append(pRating);
-    gifDiv.append(linkContainer);
+    gifDiv.append(buttonGroup);
 
     $("#all-memes").prepend(gifDiv);
   }
@@ -101,5 +111,5 @@ function animate(event) {
   } else {
     $(this).attr("src", $(this).attr("data-still"));
     $(this).attr("data-state", "still");
-  }  
+  }
 }
