@@ -22,14 +22,15 @@
     </div>
   </div>
 
+  <!--CATEGORIES SECTION-->
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-4 mt-3">
         <div class="card text-center">
-          <div class="card-header bg-success text-white">
+          <button class="card-header bg-success text-white" type="button" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
             Your Categories:
-          </div>
-          <div class="card-body">
+          </button>
+          <div class="card-body" id="collapseCategories">
             <h5 class="card-title">Categories to Search:</h5>
             <div class="input-group mb-3">
               <input type="text" id="user-meme-input" class="form-control" placeholder="Meme Genre" aria-label="Genre"
@@ -47,30 +48,35 @@
           </div>
         </div>
       </div>
+      
+      <!--GENERATED SECTION-->
       <div class="col-12 col-md-8 mt-3">
         <div class="card text-center pb-2">
-          <div class="card-header bg-success text-white">
+          <button class="card-header bg-success text-white" type="button" data-toggle="collapse" data-target="#collapseGenerated" aria-expanded="false" aria-controls="collapseGenerated">
             Memes Generated:
-          </div>
-          <div class="card-body">
+          </button>
+          <div class="card-body collapse" id="collapseGenerated">
             <h5 class="card-title">Here are your <span id="meme-title"></span> memes!</h5>
             <h6 class="card-title text-muted">~~Click images to play meme~~</h6>
-          </div>
-          <div id="all-memes" class="row">
-            <!--MEMES GET DUMPED HERE-->
+            <div id="all-memes" class="row">
+              <!--MEMES GET DUMPED HERE-->
+            </div>
           </div>
         </div>
       </div>
 
 
+
+      <!--FAVORITES SECTION-->
       <div class="col-12 mt-3">
         <div class="card text-center pb-2">
-          <button class="card-header bg-danger text-white" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-            aria-controls="collapseExample">
+          <div class="card-header bg-danger text-white" data-toggle="collapse" href="#collapseFavorites" aria-expanded="false"
+            aria-controls="collapseFavorites">
             Meme Collection<span id="collection-counter" class="badge badge-info ml-1">0</span>
-        </button>
+            <p class="small small-text text-muted">Click to Open!</p>
+          </div>
 
-          <div class="collapse" id="collapseExample">
+          <div class="collapse" id="collapseFavorites">
             <div class="card-body">
               <h5 class="card-title">Here are your favorite memes!</h5>
               <div id="favorite-memes" class="row">
