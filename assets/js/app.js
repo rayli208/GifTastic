@@ -1,5 +1,6 @@
 //TAKE USER INPUT
 var memes = [];
+refresh();
 
 //Loop through the memes array to add all searched memes
 function renderButtons() {
@@ -60,10 +61,17 @@ function handler(event) {
 }
 
 function regenerateImages(results) {
-  $("#all-memes").empty();
+  var parent = $("#all-memes");
+  parent.empty();
   for (var i = 0; i < results.length; i++) {
+    renderImage(parent, results[i], "top");
+  }
+}
+
+function renderImage(parent, imgData, cardType) {
     var gifDiv = $("<div class='parent col-md-6 col-lg-4 col-12 mb-1'>");
-    var rating = results[i].rating;
+    var rating = imgData.rating;
+    gifDiv.data("data-img", imgData);
 
     //Create button group
     var buttonGroup = $("<div class='btn-group btn-group-sm mb-3' role='group' aria-label='Basic example'>");
@@ -74,35 +82,42 @@ function regenerateImages(results) {
     //Create Link button
     var linkButton = $("<a type='button' class='btn btn-outline-warning link'>");
     var linkIcon = $("<i class='fas fa-link'>");
-    linkButton.attr("href", results[i].url);
+    linkButton.attr("href", imgData.url);
     linkButton.attr("target", "_blank");
     //Append link button to button group
     linkButton.append(linkIcon);
     buttonGroup.append(linkButton);
 
-    //Create Favorite Button
-    var heartButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
-    var heartIcon = $("<i class='fas fa-heart'>");
-    heartButton.append(heartIcon);
-    buttonGroup.append(heartButton);
-    //Listen to favorite
-    heartButton.on("click", favorite);
-
-
+    if (cardType === "favorite") {
+      // create delete button
+      var deleteButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
+      var deleteIcon = $("<i class='fas fa-trash-alt'>");
+      deleteButton.append(deleteIcon);
+      deleteButton.on("click", deleteMeme);
+      buttonGroup.append(deleteButton);
+    }else {
+      //Create Favorite Button
+      var heartButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
+      var heartIcon = $("<i class='fas fa-heart'>");
+      heartButton.append(heartIcon);
+      buttonGroup.append(heartButton);
+      //Listen to favorite
+      heartButton.on("click", favorite);
+    }
     var imgContainer = $("<p>");
     //Create the meme image and give it all of its attributes for still images and moving images
     var memeImage = $("<img class='picture'>");
-    memeImage.attr("data-still", results[i].images.original_still.url);
-    memeImage.attr("data-animate", results[i].images.fixed_height.url);
+    memeImage.attr("data-still", imgData.images.original_still.url);
+    memeImage.attr("data-animate", imgData.images.fixed_height.url);
     memeImage.attr("data-state", "still");
-    memeImage.attr("src", results[i].images.original_still.url);
+    memeImage.attr("src", imgData.images.original_still.url);
+    memeImage.attr("id", imgData.id);
     memeImage.on("click", animate);
     imgContainer.append(memeImage);
     gifDiv.append(imgContainer);
     gifDiv.append(buttonGroup);
 
-    $("#all-memes").prepend(gifDiv);
-  }
+    parent.prepend(gifDiv);
 }
 
 function animate(event) {
@@ -119,35 +134,49 @@ function animate(event) {
 
 function favorite(event){
   event.preventDefault();
-  //Repeat create image and buttons
-  var favoriteDiv = $("<div class='parent col-md-4 col-lg-3 col-12 mb-1'>");
-  var favoriteContainer = $("<p>");
-  var img = $(this).parents('.parent').find('.picture').clone();
-  var rating = $(this).parents('.parent').find('.rating').clone();
-  var link = $(this).parents('.parent').find('.link').clone();
-  img.on("click", animate);
-  //Create Delete Button
-  var deleteButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
-  var deleteIcon = $("<i class='fas fa-trash-alt'>");
-  deleteButton.append(deleteIcon);
-
-  deleteButton.on("click", deleteMeme);
-
-  var buttonGroup = $("<div class='btn-group btn-group-sm mb-3' role='group' aria-label='Basic example'>");
-  favoriteContainer.append(img);
-  buttonGroup.append(rating);
-  buttonGroup.append(link);
-  buttonGroup.append(deleteButton);
-  favoriteDiv.append(favoriteContainer);
-  favoriteDiv.append(buttonGroup);
-  $("#favorite-memes").prepend(favoriteDiv);
-  $("#collection-counter").html($("#favorite-memes").children().length);
+  var imgData = $(this).parents('.parent').data("data-img");
+  var parent = $("#favorite-memes")
+  renderImage(parent, imgData, "favorite");
+  var favorites = getFavorites();
+  favorites.push(imgData);
+  localStorage.favorites = JSON.stringify(favorites);
+  update();
 }
-
 
 function deleteMeme(event){
   event.preventDefault();
-  var parent = $(this).parents('.parent')[0];
-  parent.remove();
+  var parent = $(this).parents('.parent');
+  var img = parent.find(".picture");
+  var id = img.attr("id");
+  var favorites = getFavorites();
+  for (var i = 0; i < favorites.length; i++) {
+    if (favorites[i].id === id) {
+      favorites.splice(i, 1);
+    }
+  }
+  localStorage.favorites = JSON.stringify(favorites);
+  refresh();
+}
+
+function update() {
   $("#collection-counter").html($("#favorite-memes").children().length);
+}
+
+function getFavorites(){
+  var favorites = [];
+  if (localStorage.favorites) {
+    favorites = JSON.parse(localStorage.favorites);
+  }
+  return favorites;
+}
+function refresh() {
+  var parent = $("#favorite-memes");
+  parent.empty();
+  var favorites = getFavorites();
+  if (favorites.length) {
+    for (var i = 0; i < favorites.length; i++) {
+      renderImage(parent, favorites[i], "favorite");
+    }
+  }
+  update();
 }
