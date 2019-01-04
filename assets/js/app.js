@@ -16,7 +16,7 @@ function renderButtons() {
 }
 
 //Add a meme to the memes array
-$("#add-meme").on("click", function(event) {
+$("#add-meme").on("click", function (event) {
   event.preventDefault();
   var meme = $("#user-meme-input")
     .val()
@@ -32,9 +32,9 @@ $("#add-meme").on("click", function(event) {
 });
 
 //Delete all searched memes
-$("#delete-meme").on("click", function(event) {
+$("#delete-meme").on("click", function (event) {
   event.preventDefault();
-  if (confirm("You sure you wanna delete all your precious memes :/?")) {
+  if (confirm("You sure you wanna delete all your precious categories :/?")) {
     memes = [];
     renderButtons();
     $("#user-meme-input").val("");
@@ -55,7 +55,7 @@ function handler(event) {
   $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function(response) {
+  }).then(function (response) {
     regenerateImages(response.data);
   });
 }
@@ -69,58 +69,58 @@ function regenerateImages(results) {
 }
 
 function renderImage(parent, imgData, cardType) {
-    var gifDiv = $("<div class='parent col-md-6 col-lg-4 col-12 mb-1'>");
-    var rating = imgData.rating;
-    gifDiv.data("data-img", imgData);
+  var gifDiv = $("<div class='parent col-md-6 col-lg-4 col-12 mb-1'>");
+  var rating = imgData.rating;
+  gifDiv.data("data-img", imgData);
 
-    //Create button group
-    var buttonGroup = $("<div class='btn-group btn-group-sm mb-3' role='group' aria-label='Basic example'>");
-    //Create and append rating button
-    var ratingButton = $("<button type='button' class='btn btn-primary rating'>").text(rating);
-    buttonGroup.append(ratingButton);
+  //Create button group
+  var buttonGroup = $("<div class='btn-group btn-group-sm mb-3' role='group' aria-label='Basic example'>");
+  //Create and append rating button
+  var ratingButton = $("<button type='button' class='btn btn-primary rating'>").text(rating);
+  buttonGroup.append(ratingButton);
 
-    //Create Link button
-    var linkButton = $("<button type='button' class='btn btn-outline-warning link'>");
-    var linkIcon = $("<i class='fas fa-link'>");
-    linkButton.attr("href", imgData.url);
-    linkButton.attr("target", "_blank");
-    //Append link button to button group
-    linkButton.append(linkIcon);
-    buttonGroup.append(linkButton);
-    $(linkButton).on('click', function(){
-      window.open(`${imgData.url}`, '_blank');  
-    });
+  //Create Link button
+  var linkButton = $("<button type='button' class='btn btn-outline-warning link'>");
+  var linkIcon = $("<i class='fas fa-link'>");
+  linkButton.attr("href", imgData.url);
+  linkButton.attr("target", "_blank");
+  //Append link button to button group
+  linkButton.append(linkIcon);
+  buttonGroup.append(linkButton);
+  $(linkButton).on('click', function () {
+    window.open(`${imgData.url}`, '_blank');
+  });
 
-    if (cardType === "favorite") {
-      // create delete button
-      var deleteButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
-      var deleteIcon = $("<i class='fas fa-trash-alt'>");
-      deleteButton.append(deleteIcon);
-      deleteButton.on("click", deleteMeme);
-      buttonGroup.append(deleteButton);
-    }else {
-      //Create Favorite Button
-      var heartButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
-      var heartIcon = $("<i class='fas fa-heart'>");
-      heartButton.append(heartIcon);
-      buttonGroup.append(heartButton);
-      //Listen to favorite
-      heartButton.on("click", favorite);
-    }
-    var imgContainer = $("<p>");
-    //Create the meme image and give it all of its attributes for still images and moving images
-    var memeImage = $("<img class='picture'>");
-    memeImage.attr("data-still", imgData.images.original_still.url);
-    memeImage.attr("data-animate", imgData.images.fixed_height.url);
-    memeImage.attr("data-state", "still");
-    memeImage.attr("src", imgData.images.original_still.url);
-    memeImage.attr("id", imgData.id);
-    memeImage.on("click", animate);
-    imgContainer.append(memeImage);
-    gifDiv.append(imgContainer);
-    gifDiv.append(buttonGroup);
+  if (cardType === "favorite") {
+    // create delete button
+    var deleteButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
+    var deleteIcon = $("<i class='fas fa-trash-alt'>");
+    deleteButton.append(deleteIcon);
+    deleteButton.on("click", deleteMeme);
+    buttonGroup.append(deleteButton);
+  } else {
+    //Create Favorite Button
+    var heartButton = $("<button type='button' class='btn btn-outline-danger favorite'>");
+    var heartIcon = $("<i class='fas fa-heart'>");
+    heartButton.append(heartIcon);
+    buttonGroup.append(heartButton);
+    //Listen to favorite
+    heartButton.on("click", favorite);
+  }
+  var imgContainer = $("<p>");
+  //Create the meme image and give it all of its attributes for still images and moving images
+  var memeImage = $("<img class='picture'>");
+  memeImage.attr("data-still", imgData.images.original_still.url);
+  memeImage.attr("data-animate", imgData.images.fixed_height.url);
+  memeImage.attr("data-state", "still");
+  memeImage.attr("src", imgData.images.original_still.url);
+  memeImage.attr("id", imgData.id);
+  memeImage.on("click", animate);
+  imgContainer.append(memeImage);
+  gifDiv.append(imgContainer);
+  gifDiv.append(buttonGroup);
 
-    parent.prepend(gifDiv);
+  parent.prepend(gifDiv);
 }
 
 function animate(event) {
@@ -135,7 +135,7 @@ function animate(event) {
   }
 }
 
-function favorite(event){
+function favorite(event) {
   event.preventDefault();
   var imgData = $(this).parents('.parent').data("data-img");
   var parent = $("#favorite-memes")
@@ -146,32 +146,37 @@ function favorite(event){
   update();
 }
 
-function deleteMeme(event){
+function deleteMeme(event) {
   event.preventDefault();
-  var parent = $(this).parents('.parent');
-  var img = parent.find(".picture");
-  var id = img.attr("id");
-  var favorites = getFavorites();
-  for (var i = 0; i < favorites.length; i++) {
-    if (favorites[i].id === id) {
-      favorites.splice(i, 1);
+  if (confirm("You sure you want to delete this meme :o!?")) {
+    var parent = $(this).parents('.parent');
+    var img = parent.find(".picture");
+    var id = img.attr("id");
+    var favorites = getFavorites();
+    for (var i = 0; i < favorites.length; i++) {
+      if (favorites[i].id === id) {
+        favorites.splice(i, 1);
+      }
     }
+    localStorage.favorites = JSON.stringify(favorites);
+    refresh();
+  } else {
+    false;
   }
-  localStorage.favorites = JSON.stringify(favorites);
-  refresh();
 }
 
 function update() {
   $("#collection-counter").html($("#favorite-memes").children().length);
 }
 
-function getFavorites(){
+function getFavorites() {
   var favorites = [];
   if (localStorage.favorites) {
     favorites = JSON.parse(localStorage.favorites);
   }
   return favorites;
 }
+
 function refresh() {
   var parent = $("#favorite-memes");
   parent.empty();
