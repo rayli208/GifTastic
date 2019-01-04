@@ -80,13 +80,16 @@ function renderImage(parent, imgData, cardType) {
     buttonGroup.append(ratingButton);
 
     //Create Link button
-    var linkButton = $("<a type='button' class='btn btn-outline-warning link'>");
+    var linkButton = $("<button type='button' class='btn btn-outline-warning link'>");
     var linkIcon = $("<i class='fas fa-link'>");
     linkButton.attr("href", imgData.url);
     linkButton.attr("target", "_blank");
     //Append link button to button group
     linkButton.append(linkIcon);
     buttonGroup.append(linkButton);
+    $(linkButton).on('click', function(){
+      window.open(`${imgData.url}`, '_blank');  
+    });
 
     if (cardType === "favorite") {
       // create delete button

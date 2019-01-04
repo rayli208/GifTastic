@@ -55,7 +55,7 @@
           <button class="card-header bg-success text-white" type="button" data-toggle="collapse" data-target="#collapseGenerated" aria-expanded="false" aria-controls="collapseGenerated">
             Memes Generated:
           </button>
-          <div class="card-body collapse" id="collapseGenerated">
+          <div class="card-body" id="collapseGenerated">
             <h5 class="card-title">Here are your <span id="meme-title"></span> memes!</h5>
             <h6 class="card-title text-muted">~~Click images to play meme~~</h6>
             <div id="all-memes" class="row">
@@ -66,17 +66,15 @@
       </div>
 
 
-
-      <!--FAVORITES SECTION-->
       <div class="col-12 mt-3">
         <div class="card text-center pb-2">
-          <button class="card-header bg-danger text-white" data-toggle="collapse" href="#collapseFavorites" aria-expanded="false"
-            aria-controls="collapseFavorites">
+          <div class="card-header bg-danger text-white" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+            aria-controls="collapseExample">
             Meme Collection<span id="collection-counter" class="badge badge-info ml-1">0</span>
             <p class="small small-text text-muted">Click to Open!</p>
-        </button>
+          </div>
 
-          <div class="collapse" id="collapseFavorites">
+          <div class="collapse" id="collapseExample">
             <div class="card-body">
               <h5 class="card-title">Here are your favorite memes!</h5>
               <div id="favorite-memes" class="row">
