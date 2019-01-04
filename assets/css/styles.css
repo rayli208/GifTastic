@@ -12,3 +12,8 @@ img{
 .navbar{
   border-radius: 4px;
 }
+
+.small-text{
+  padding: 0;
+  margin: 0;
+}

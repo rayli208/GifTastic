@@ -27,10 +27,10 @@
       <div class="col-12 col-md-4 mt-3">
         <div class="card text-center">
           <div class="card-header bg-success text-white">
-            Your Memes:
+            Your Categories:
           </div>
           <div class="card-body">
-            <h5 class="card-title">Meme's to Search:</h5>
+            <h5 class="card-title">Categories to Search:</h5>
             <div class="input-group mb-3">
               <input type="text" id="user-meme-input" class="form-control" placeholder="Meme Genre" aria-label="Genre"
                 aria-describedby="basic-addon1">
@@ -39,7 +39,7 @@
               Generate!
             </a>
             <a href="#" id="delete-meme" class="btn btn-outline-danger btn-block">
-              Delete All Memes
+              Delete All Categories
             </a>
             <hr class="mx-auto" width="75%">
             <div id="meme-name-holder">
@@ -54,6 +54,7 @@
           </div>
           <div class="card-body">
             <h5 class="card-title">Here are your <span id="meme-title"></span> memes!</h5>
+            <h6 class="card-title text-muted">~~Click images to play meme~~</h6>
           </div>
           <div id="all-memes" class="row">
             <!--MEMES GET DUMPED HERE-->
@@ -67,6 +68,7 @@
           <div class="card-header bg-danger text-white" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
             aria-controls="collapseExample">
             Meme Collection<span id="collection-counter" class="badge badge-info ml-1">0</span>
+            <p class="small small-text text-muted">Click to Open!</p>
           </div>
 
           <div class="collapse" id="collapseExample">
